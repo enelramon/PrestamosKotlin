@@ -13,8 +13,8 @@ import com.sagrd.prestamoskotlin.model.Ocupacion
 abstract class PrestamosDb: RoomDatabase() {
     abstract  val ocupacionDao: OcupacionDao
 
-    companion object {
-        private const val DATABASE_NAME = "PrestamosDb"
+   /* companion object {
+
         @Volatile private var instance: PrestamosDb? = null
 
         private fun buildDataBase(context: Context): PrestamosDb {
@@ -30,6 +30,6 @@ abstract class PrestamosDb: RoomDatabase() {
                 instance ?: buildDataBase(context).also { instance = it }
             }
         }
-    }
+    }*/
 
 }
