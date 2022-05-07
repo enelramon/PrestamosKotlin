@@ -11,12 +11,19 @@
         android:label="lista_ocupaciones_fragment"
         tools:layout="@layout/lista_ocupaciones_fragment" >
         <action
-            android:id="@+id/action_listaOcupacionesFragment_to_ocupacionesFragment"
+            android:id="@+id/action_to_ocupacionesFragment"
             app:destination="@id/ocupacionesFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/ocupacionesFragment"
         android:name="com.sagrd.prestamoskotlin.views.ocupaciones.OcupacionesFragment"
         android:label="ocupaciones_fragment"
-        tools:layout="@layout/ocupaciones_fragment" />
+        tools:layout="@layout/ocupaciones_fragment" >
+        <argument
+            android:name="ocupacion"
+            app:argType="com.sagrd.prestamoskotlin.model.Ocupacion"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>

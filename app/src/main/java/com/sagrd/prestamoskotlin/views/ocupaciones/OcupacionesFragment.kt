@@ -6,27 +6,70 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputEditText
 import com.sagrd.prestamoskotlin.R
+import com.sagrd.prestamoskotlin.databinding.ListaOcupacionesFragmentBinding
+import com.sagrd.prestamoskotlin.databinding.OcupacionesFragmentBinding
+import com.sagrd.prestamoskotlin.model.Ocupacion
+import com.sagrd.prestamoskotlin.viewmodel.OcupacionViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class OcupacionesFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = OcupacionesFragment()
-    }
+    private val viewModel: OcupacionViewModel by viewModels()
+    private lateinit var binding: OcupacionesFragmentBinding
 
-    private lateinit var viewModel: OcupacionesViewModel
+    // get the arguments
+    private val args : OcupacionesFragmentArgs by navArgs()
+
+    private var ocupacionId: Int =0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.ocupaciones_fragment, container, false)
+        binding = OcupacionesFragmentBinding.inflate(inflater, container, false)
+
+       LlenarCampos()
+
+        binding.guardarButton.setOnClickListener {
+            viewModel.guardar(
+                Ocupacion(
+                    ocupacionId,
+                    binding.ocupacionEditText.text.toString(),
+                    binding.ingresosEditText.floatValue()
+                )
+            )
+        }
+
+        viewModel.guardado.observe(viewLifecycleOwner){
+                if (it) {
+                    Snackbar.make(binding.ingresosEditText, "Guardo", Snackbar.LENGTH_LONG).show()
+                     findNavController().navigateUp()
+                }
+        }
+
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(OcupacionesViewModel::class.java)
-        // TODO: Use the ViewModel
+
+    fun LlenarCampos(){
+        val ocupacion: Ocupacion? = args.ocupacion
+
+        ocupacion?.let {
+            ocupacionId = it.ocupacionId
+            binding.ocupacionEditText.setText(it.descripcion)
+            binding.ingresosEditText.setText(it.Ingresos.toString())
+        }
     }
+
+    fun TextInputEditText.floatValue() = text.toString().toFloatOrNull() ?: 0.0f
+
 
 }
