@@ -25,19 +25,19 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.guardarButton.setOnClickListener {
-            viewModel.guardar(Ocupacion(
-                0,
-                binding.ocupacionEditText.text.toString(),
-                binding.ingresosEditText.floatValue()
-            ))
-        }
-
-        viewModel.guardado.observe(this) {
-            if (it) {
-                Snackbar.make(binding.ingresosEditText, "Guardo", Snackbar.LENGTH_LONG).show()
-            }
-        }
+//        binding.guardarButton.setOnClickListener {
+//            viewModel.guardar(Ocupacion(
+//                0,
+//                binding.ocupacionEditText.text.toString(),
+//                binding.ingresosEditText.floatValue()
+//            ))
+//        }
+//
+//        viewModel.guardado.observe(this) {
+//            if (it) {
+//                Snackbar.make(binding.ingresosEditText, "Guardo", Snackbar.LENGTH_LONG).show()
+//            }
+//        }
     }
 
     fun TextInputEditText.floatValue() = text.toString().toFloatOrNull() ?: 0.0f

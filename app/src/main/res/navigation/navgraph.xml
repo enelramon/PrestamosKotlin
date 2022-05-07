@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navgraph"
+    app:startDestination="@id/listaOcupacionesFragment">
+
+    <fragment
+        android:id="@+id/listaOcupacionesFragment"
+        android:name="com.sagrd.prestamoskotlin.views.ocupaciones.ListaOcupacionesFragment"
+        android:label="lista_ocupaciones_fragment"
+        tools:layout="@layout/lista_ocupaciones_fragment" >
+        <action
+            android:id="@+id/action_listaOcupacionesFragment_to_ocupacionesFragment"
+            app:destination="@id/ocupacionesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ocupacionesFragment"
+        android:name="com.sagrd.prestamoskotlin.views.ocupaciones.OcupacionesFragment"
+        android:label="ocupaciones_fragment"
+        tools:layout="@layout/ocupaciones_fragment" />
+</navigation>
