@@ -9,9 +9,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.sagrd.prestamoskotlin.R
 import com.sagrd.prestamoskotlin.databinding.ListaOcupacionesFragmentBinding
+import com.sagrd.prestamoskotlin.model.Ocupacion
 import com.sagrd.prestamoskotlin.viewmodel.OcupacionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -29,11 +31,8 @@ class ListaOcupacionesFragment : Fragment() {
     ): View? {
         binding = ListaOcupacionesFragmentBinding.inflate(inflater, container, false)
 
-        binding.agregarButton.setOnClickListener {
-            findNavController().navigate(R.id.action_to_ocupacionesFragment)
-        }
+        val adapter = OcupacionesAdapter(::openOcupacionesFragment)
 
-        val adapter = OcupacionesAdapter()
         binding.ocupacionesRecyclerView.adapter = adapter
 
         lifecycleScope.launch {
@@ -43,8 +42,16 @@ class ListaOcupacionesFragment : Fragment() {
                 }
         }
 
+        binding.agregarButton.setOnClickListener {
+            openOcupacionesFragment()
+        }
+
         return binding.root
     }
 
+    fun openOcupacionesFragment(ocupacion: Ocupacion?=null)  {
+        val action = ListaOcupacionesFragmentDirections.actionToOcupacionesFragment(ocupacion)
+       findNavController().navigate(action)
+    }
 
 }

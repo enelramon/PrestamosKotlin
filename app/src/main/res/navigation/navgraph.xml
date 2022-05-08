@@ -15,6 +15,7 @@
             app:destination="@id/ocupacionesFragment" />
 
     </fragment>
+
     <fragment
         android:id="@+id/ocupacionesFragment"
         android:name="com.sagrd.prestamoskotlin.views.ocupaciones.OcupacionesFragment"

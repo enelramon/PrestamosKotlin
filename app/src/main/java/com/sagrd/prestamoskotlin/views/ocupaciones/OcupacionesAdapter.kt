@@ -10,7 +10,9 @@ import com.sagrd.prestamoskotlin.R
 import com.sagrd.prestamoskotlin.databinding.RowOcupacionBinding
 import com.sagrd.prestamoskotlin.model.Ocupacion
 
-class OcupacionesAdapter :
+class OcupacionesAdapter(
+    private var onItemClicked: ((ocupacion:Ocupacion) -> Unit)
+) :
     ListAdapter<Ocupacion, OcupacionesAdapter.OcupacionViewHolder>(OcupacionDiffCallBack()) {
 
     override fun onBindViewHolder(holder: OcupacionViewHolder, position: Int) {
@@ -31,10 +33,8 @@ class OcupacionesAdapter :
             binding.descripcionTextView.text = item.descripcion
             binding.ingresosTextView.text = item.Ingresos.toString();
 
-            binding.rowOcupacionConstraintlayout.setOnClickListener {
-                val action = ListaOcupacionesFragmentDirections.actionToOcupacionesFragment(item)
-
-                binding.root.findNavController().navigate(action)
+            binding.root.setOnClickListener {
+                onItemClicked(item)
             }
         }
     }
