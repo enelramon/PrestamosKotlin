@@ -7,6 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -18,6 +21,8 @@ import com.sagrd.prestamoskotlin.databinding.OcupacionesFragmentBinding
 import com.sagrd.prestamoskotlin.model.Ocupacion
 import com.sagrd.prestamoskotlin.viewmodel.OcupacionViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class OcupacionesFragment : Fragment() {
@@ -39,13 +44,18 @@ class OcupacionesFragment : Fragment() {
        LlenarCampos()
 
         binding.guardarButton.setOnClickListener {
-            viewModel.guardar(
-                Ocupacion(
-                    ocupacionId,
-                    binding.ocupacionEditText.text.toString(),
-                    binding.ingresosEditText.floatValue()
-                )
+            viewModel.OcupacionClickedGuardar(
+                binding.ocupacionEditText.text.toString(),
+                binding.ingresosEditText.floatValue()
             )
+        }
+
+        lifecycleScope.launch{
+            //la funcion repeatOnLifecycle es la que lanza la sucripcion a los evento cuando inicia la acion
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                //llamada a una funcion en una sobre carga
+                viewModel.viewState.collect(::render)
+            }
         }
 
         viewModel.guardado.observe(viewLifecycleOwner){
@@ -56,6 +66,13 @@ class OcupacionesFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun render(viewState: OcupacionViewState) = with(binding) {
+        if (viewState.loading == true)
+            loading.visibility = View.VISIBLE
+        else
+            loading.visibility = View.INVISIBLE
     }
 
 
