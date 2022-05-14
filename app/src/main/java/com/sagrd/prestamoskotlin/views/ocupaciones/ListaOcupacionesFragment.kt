@@ -14,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import com.sagrd.prestamoskotlin.R
 import com.sagrd.prestamoskotlin.databinding.ListaOcupacionesFragmentBinding
 import com.sagrd.prestamoskotlin.model.Ocupacion
-import com.sagrd.prestamoskotlin.viewmodel.OcupacionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

@@ -16,7 +16,6 @@ import com.sagrd.prestamoskotlin.R
 import com.sagrd.prestamoskotlin.databinding.ListaOcupacionesFragmentBinding
 import com.sagrd.prestamoskotlin.databinding.OcupacionesFragmentBinding
 import com.sagrd.prestamoskotlin.model.Ocupacion
-import com.sagrd.prestamoskotlin.viewmodel.OcupacionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
