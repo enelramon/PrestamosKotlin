@@ -3,6 +3,7 @@ package com.sagrd.prestamoskotlin.di
 import android.content.Context
 import androidx.room.Room
 import com.sagrd.prestamoskotlin.data.OcupacionDao
+import com.sagrd.prestamoskotlin.data.OcupacionRepository
 import com.sagrd.prestamoskotlin.data.PrestamosDb
 import dagger.Module
 import dagger.Provides
@@ -33,4 +34,8 @@ object AppModule {
             return prestamosDb.ocupacionDao
         }
 
+    @Provides
+    fun ProvideOcupacionRepository(ocupacionDao: OcupacionDao): OcupacionRepository {
+        return OcupacionRepository(ocupacionDao)
+    }
 }
