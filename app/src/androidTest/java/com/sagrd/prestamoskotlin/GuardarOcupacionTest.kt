@@ -9,8 +9,6 @@ import com.sagrd.prestamoskotlin.data.PrestamosDb
 import com.sagrd.prestamoskotlin.model.Ocupacion
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
-import org.hamcrest.CoreMatchers
-import org.hamcrest.MatcherAssert
 import org.junit.After
 
 import org.junit.Test
@@ -56,8 +54,8 @@ class GuardarOcupacionTest {
         //insertar con el repo
         ocupacionRepository.Insertar( ocupacion)
 
-        val ocupaciones = ocupacionRepository.GetLista().first().count()
+        val cantidad : Int = ocupacionRepository.GetLista().first().count()
 
-        assertTrue(ocupaciones>0)
+        assertTrue(cantidad>0)
     }
 }
